@@ -1,4 +1,7 @@
 Turkey::Application.routes.draw do
-  resources :users
+  # devise_for :users
+  # devise_for :installs
   resources :dishes
+
+  root 'welcome#index'
 end
