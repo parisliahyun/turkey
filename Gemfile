@@ -11,8 +11,10 @@ gem 'turbolinks'
 gem 'jbuilder', '~> 1.2'
 gem 'bcrypt-ruby', '~> 3.0.0'
 gem 'bootstrap-sass', github: 'thomas-mcdonald/bootstrap-sass', branch: '3'
-gem 'devise', '~> 3.0.3'
+# gem 'devise', '~> 3.1.1'
 gem "stripe", '~> 1.8.8'
+gem 'pry-rails', group: [:development, :test]
+gem 'rails_12factor', group: :production
 
 group :doc do
   gem 'sdoc', require: false
