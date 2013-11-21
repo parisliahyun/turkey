@@ -14,6 +14,7 @@ gem 'devise', '~> 3.1.1'
 gem "stripe", '~> 1.8.8'
 gem 'pry-rails', group: [:development, :test]
 gem 'rails_12factor', group: :production
+gem "gibbon", "~> 1.0.4"
 
 group :doc do
   gem 'sdoc', require: false
