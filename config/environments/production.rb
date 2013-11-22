@@ -79,5 +79,5 @@ Turkey::Application.configure do
   config.log_formatter = ::Logger::Formatter.new
 
   # set this to hostname
-  config.action_mailer.default_url_options = { :host => 'localhost:3000/' }
+  config.action_mailer.default_url_options = { :host => 'http://powerful-meadow-1944.herokuapp.com/' }
 end
