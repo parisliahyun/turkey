@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20131121224211) do
+ActiveRecord::Schema.define(version: 20131121224210) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -54,8 +54,6 @@ ActiveRecord::Schema.define(version: 20131121224211) do
     t.string   "notified_object_type"
     t.string   "notification_code"
     t.string   "attachment"
-    t.boolean  "global",               default: false
-    t.datetime "expires"
   end
 
   add_index "notifications", ["conversation_id"], name: "index_notifications_on_conversation_id", using: :btree
@@ -100,9 +98,5 @@ ActiveRecord::Schema.define(version: 20131121224211) do
 
   add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree
   add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
-
-  add_foreign_key "notifications", "conversations", name: "notifications_on_conversation_id"
-
-  add_foreign_key "receipts", "notifications", name: "receipts_on_notification_id"
 
 end
