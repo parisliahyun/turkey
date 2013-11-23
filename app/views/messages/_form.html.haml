@@ -1,0 +1,7 @@
+
+= simple_form_for @message do |f|
+
+  = f.input :recipient_id, input_html: {class: 'chosen', multiple: true}, label: 'Recipient'
+  = f.input :subject
+  = f.input :body, required: false, label: 'Your message'
+  = f.submit 'Send message'

@@ -14,7 +14,9 @@ gem 'devise', '~> 3.1.1'
 gem "stripe", '~> 1.8.8'
 gem 'pry-rails', group: [:development, :test]
 gem 'rails_12factor', group: :production
-
+gem 'haml','~>4.0.4'
+gem 'simple_form'
+gem 'protected_attributes'
 
 group :doc do
   gem 'sdoc', require: false
