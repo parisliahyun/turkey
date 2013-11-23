@@ -25,7 +25,6 @@ class MessagesController < ApplicationController
  def create
   @message = Message.new(params[:message])
   @message.sender_id = @user.id
-   binding.pry
    if @message.save
     flash[:notice] = "Message has been sent"
     redirect_to user_messages_path(current_user, :mailbox=>:inbox)
