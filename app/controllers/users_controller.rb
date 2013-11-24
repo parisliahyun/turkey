@@ -2,6 +2,7 @@ class UsersController < ApplicationController
    before_filter :set_user
 
   def show
+    @user = User.find(params[:id])
     render :show
   end
 

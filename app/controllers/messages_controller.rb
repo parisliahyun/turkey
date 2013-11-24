@@ -1,5 +1,6 @@
 class MessagesController < ApplicationController
- before_filter :set_user, :authenticate_user!
+ before_filter :set_user
+ # :authenticate_user!
  
  def index
    if params[:mailbox] == "sent"
@@ -23,11 +24,11 @@ class MessagesController < ApplicationController
  
  def create
   @message = Message.new(message_params)
-  # @message = Message.new(params[:message])
   @message.sender_id = current_user.id
   @reply_to = current_user.id
-  # @reply_to = User.find(current_user.id)
-  @message.recipient_id = @user.id
+  # binding.pry
+  # @message.recipient_id = @user.id
+  
    if @message.save
 
       # current_user.received_messages << @message
