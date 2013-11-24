@@ -1,5 +1,5 @@
 class UsersController < ApplicationController
-   before_filter :set_user, :authenticate_user!
+   before_filter :set_user
 
   def show
     render :show

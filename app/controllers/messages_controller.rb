@@ -24,15 +24,14 @@ class MessagesController < ApplicationController
  def create
   @message = Message.new(message_params)
   # @message = Message.new(params[:message])
-  @message.sender_id = @user.id
+  @message.sender_id = current_user.id
+  @reply_to = current_user.id
+  # @reply_to = User.find(current_user.id)
+  @message.recipient_id = @user.id
    if @message.save
-       params.keys.each do |x|
-        if x.to_i > 0
-          User.find(x.to_i).received_messages << @message
-        end
-      end
-      current_user.received_messages << @message
 
+      # current_user.received_messages << @message
+      # binding.pry
     flash[:notice] = "Message has been sent"
     redirect_to user_messages_path(current_user, :mailbox=>:inbox)
    else
