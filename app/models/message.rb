@@ -10,6 +10,11 @@ class Message < ActiveRecord::Base
     :primary_key => 'user_id',
     :foreign_key => 'recipient_id'
 
+   def transform_date
+     d = Date.parse(self.created_at.to_s)
+     return "#{Date::MONTHNAMES[d.mon]} #{d.mday}, #{d.year}"
+   end
+
    def mark_message_deleted(id, user_id)
     self.sender_deleted = true if self.sender_id == user_id and self.id=id
     self.recipient_deleted = true if self.recipient_id == user_id and self.id=id

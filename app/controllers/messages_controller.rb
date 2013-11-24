@@ -17,8 +17,6 @@ def create
   @message = Message.new(message_params)
   @message.sender_id = current_user.id
   @reply_to = current_user.id
-  @recipient = User.find(@message.recipient_id.to_i)
-  # @recipient.received_messages << @message
   if @message.save
     flash[:notice] = "Message has been sent"
     redirect_to user_messages_path(current_user, :mailbox=>:inbox)
@@ -29,10 +27,7 @@ end
 
 def index
   # if params[:mailbox] == "sent"
-   # m = Message.find_by(recipient_id: [p.id.to_s])
   @messages = Message.where(recipient_id: [current_user.id.to_s])
-      # binding.pry
-      # binding.pry
   # elsif params[:mailbox] == "inbox"
     # @messages = current_user.sent_messages
     #elsif params[:mailbox] == "archieved"

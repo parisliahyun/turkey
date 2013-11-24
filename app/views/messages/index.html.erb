@@ -1,6 +1,7 @@
 
 <ul>
   <% @messages.each do |message| %>
+  <li>Sent: <%= message.transform_date %></li>
   <li>Subject: <%= message.subject %> </li>
   <li><%= message.body %> </li>
   <% end %>
