@@ -2,70 +2,56 @@ class MessagesController < ApplicationController
  before_filter :set_user
  # :authenticate_user!
  
- def index
-   if params[:mailbox] == "sent"
-    @messages = @user.sent_messages
-   elsif params[:mailbox] == "inbox"
-    @messages = @user.received_messages
-    #elsif params[:mailbox] == "archieved"
-    # @messages = @user.archived_messages
-   end
- end
  
- def new
-   @message = Message.new
+def new
+  @message = Message.new
     if params[:reply_to]
       @reply_to = User.find_by_user_id(params[:reply_to])
     unless @reply_to.nil?
-       @message.recipient_id = @reply_to.user_id
+      @message.recipient_id = @reply_to.user_id
     end
-   end
- end
+  end
+end
  
- def create
+def create
   @message = Message.new(message_params)
   @message.sender_id = current_user.id
   @reply_to = current_user.id
-  # binding.pry
-  # @message.recipient_id = @user.id
-  
-   if @message.save
-
-      # current_user.received_messages << @message
-      # binding.pry
+  @recipient = User.find(@message.recipient_id.to_i)
+  @recipient.received_messages << @message
+  if @message.save
     flash[:notice] = "Message has been sent"
     redirect_to user_messages_path(current_user, :mailbox=>:inbox)
-   else
+  else
     render :action => :new
-   end
- end
+  end
+end
+
+def index
+  # if params[:mailbox] == "sent"
+   # m = Message.find_by(recipient_id: [p.id.to_s])
+      @messages = Message.where(recipient_id: [current_user.id.to_s])
+      # binding.pry
+      # binding.pry
+  # elsif params[:mailbox] == "inbox"
+    # @messages = current_user.sent_messages
+    #elsif params[:mailbox] == "archieved"
+    # @messages = @user.archived_messages
+  # end
+  render :index
+end
  
- def show
-  @message = Message.readingmessage(params[:id],@user.id)
- end
- 
- def delete_multiple
-   if params[:delete]
-     params[:delete].each { |id|
-     @message = Message.find(id)
-     @message.mark_message_deleted(@message.id,@user.id) unless @message.nil?
-   }
-     flash[:notice] = "Messages deleted"
-   end
-     redirect_to user_messages_path(@user, @messages)
- end
+  def show
+    render :show
+  end
  
  private
 
    def message_params
       params.require(:message).permit(:recipient_id, :subject, :body)
-
    end
-
 
    def set_user
     @user = current_user
    end
-
-
 end
