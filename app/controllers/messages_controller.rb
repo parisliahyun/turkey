@@ -2,7 +2,6 @@ class MessagesController < ApplicationController
  before_filter :set_user
  # :authenticate_user!
  
- 
 def new
   @message = Message.new
     if params[:reply_to]
@@ -37,6 +36,7 @@ def index
 end
  
   def show
+    @message = Message.find_by(id: params[:id])
     render :show
   end
  

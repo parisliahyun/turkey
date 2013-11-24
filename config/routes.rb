@@ -5,7 +5,7 @@ Turkey::Application.routes.draw do
 
     resources :messages do
       member do
-        # post :create
+        get :show
         post :new
         post :reply
         post :trash
