@@ -1,6 +1,5 @@
 class MessagesController < ApplicationController
- 
- before_filter :set_user
+ before_filter :set_user, :authenticate_user!
  
  def index
    if params[:mailbox] == "sent"
