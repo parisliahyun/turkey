@@ -23,7 +23,8 @@ class MessagesController < ApplicationController
  end
  
  def create
-  @message = Message.new(params[:message])
+  @message = Message.new(message_params)
+  # @message = Message.new(params[:message])
   @message.sender_id = @user.id
    if @message.save
     flash[:notice] = "Message has been sent"
@@ -49,7 +50,15 @@ class MessagesController < ApplicationController
  end
  
  private
+
+   def message_params
+      params.require(:message).permit(:recipient_id, :subject, :body, :sender_id, :read_at, :sender_deleted, :recipient_deleted)
+   end
+
+
    def set_user
     @user = current_user
    end
+
+
 end
