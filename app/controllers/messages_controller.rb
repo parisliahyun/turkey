@@ -27,6 +27,13 @@ class MessagesController < ApplicationController
   # @message = Message.new(params[:message])
   @message.sender_id = @user.id
    if @message.save
+       params.keys.each do |x|
+        if x.to_i > 0
+          User.find(x.to_i).received_messages << @message
+        end
+      end
+      current_user.received_messages << @message
+
     flash[:notice] = "Message has been sent"
     redirect_to user_messages_path(current_user, :mailbox=>:inbox)
    else
@@ -52,7 +59,8 @@ class MessagesController < ApplicationController
  private
 
    def message_params
-      params.require(:message).permit(:recipient_id, :subject, :body, :sender_id, :read_at, :sender_deleted, :recipient_deleted)
+      params.require(:message).permit(:recipient_id, :subject, :body)
+
    end
 
 

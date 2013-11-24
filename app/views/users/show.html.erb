@@ -1,3 +1,35 @@
-<%=form_tag(admin_user_generate_new_password_email_path(@user)) do %>
-      <%=submit_tag 'Send Reset Password Email', class: 'button', :confirm => 'Are you sure you want to email reset password instructions?' %>
-   <% end %>
+<h2><%= "#{@user.name}" %></h2>
+<button type="button" class="btn btn-primary btn-medium" data-toggle="modal" data-target="#myModal">
+  <span class="glyphicon glyphicon-envelope"></span> Message
+</button>
+
+<!-- Modal -->
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+        <%= form_tag user_messages_path(current_user, @message), :action => :post, :html => {:class => 'form',:role => 'form'} do %>
+          <h4 class="modal-title" id="myModalLabel">
+              <%= text_field_tag :subject, nil, {placeholder: "subject", class: 'field'} %></br>
+          </h4>
+      </div>
+      <div class="modal-body">
+          <center>
+            <div class="form-group">
+              <%= text_field_tag :recipient_id, nil, {placeholder: "recipient_id", class: 'field'} %></br>  
+            </div>
+            <div class="form-group">
+              <%= text_field_tag :body, nil, {placeholder: "body", class: 'field'} %></br>  
+            </div>
+
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        <%= submit_tag nil, class: "btn btn-primary" %>
+          <% end %>
+          </center>
+      </div>
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
