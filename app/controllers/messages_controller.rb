@@ -27,9 +27,6 @@ end
 def index
   # if params[:mailbox] == "sent"
   @messages = Message.where(recipient_id: [current_user.id.to_s]) 
-  @messages.each do |message|
-    @sender = User.find_by(id: [message.sender_id.to_i])
-  end
   # elsif params[:mailbox] == "inbox"
     # @messages = current_user.sent_messages
     #elsif params[:mailbox] == "archieved"

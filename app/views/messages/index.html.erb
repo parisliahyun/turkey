@@ -11,6 +11,7 @@
     </thead>
     <tbody>
     <% @messages.each do |message| %>
+      <% @sender = User.find_by(id: [message.sender_id.to_i]) %>
       <tr>
         <td><%= link_to @sender.name, user_path(message.sender_id) %></td>
         <td><%= link_to message.subject, user_message_path(current_user, message) %></td>
