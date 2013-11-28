@@ -34,5 +34,6 @@ Turkey::Application.routes.draw do
 
 
   # resources :dishes
+
   root 'welcome#index'
 end

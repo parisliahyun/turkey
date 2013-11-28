@@ -24,12 +24,18 @@ def create
   end
 end
 
+def sent
+  @messages = Message.where(recipient_id: [current_user.id.to_s]) 
+  render :sent
+end
+
 def index
   # if params[:mailbox] == "sent"
-  @messages = Message.where(recipient_id: [current_user.id.to_s]) 
-  # elsif params[:mailbox] == "inbox"
-    # @messages = current_user.sent_messages
-    #elsif params[:mailbox] == "archieved"
+    # @messages = Message.where(sender_id: [current_user.id.to_s]) 
+    # render :sent
+    # elsif params[:mailbox] == "inbox"
+    @messages = Message.where(recipient_id: [current_user.id.to_s]) 
+  # elsif params[:mailbox] == "archived"
     # @messages = @user.archived_messages
   # end
   render :index

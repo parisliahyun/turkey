@@ -1,14 +1,6 @@
-<% action_arr=
-[
-  ['index','index','Inbox',"fa fa-inbox"],
-  ['sent','sent','Sent',"fa fa-location-arrow"]
-]%>
 <ul class="nav nav-pills">
-  <% action_arr.each do |arr| %>
-  <%  matching_actions,action,display_string,icon_class = arr%>
-  <%  class_name = (matching_actions.split(",").to_a.include?(controller.action_name.downcase)==true)? 'active' : 'plain'%>
-  <li class=<%=class_name%>>
-    <a href=<%= eval("user_messages_path") %> ><%= display_string %> <i class='<%= icon_class %>'></i></a>
-  </li>
-  <% end %>
+  <li class="active"><%= link_to 'inbox', user_messages_path(current_user) %></li>
+  <li class><%= link_to 'sent', user_messages_path(current_user) %></li>
 </ul>
+
+
