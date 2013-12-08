@@ -16,6 +16,7 @@ gem 'pry-rails', group: [:development, :test]
 gem 'rails_12factor', group: :production
 gem 'haml','~>4.0.4'
 gem 'simple_form'
+gem "letsrate", "~> 1.0.8"
 # gem 'protected_attributes'
 
 group :doc do

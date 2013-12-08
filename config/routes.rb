@@ -1,7 +1,10 @@
 Turkey::Application.routes.draw do
+
+  get '/rate' => 'rater#create', :as => 'rate'
   devise_for :users
   resources :users, only: :show do
     post :generate_new_password_email
+    
 
     resources :messages do
       member do

@@ -11,16 +11,10 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20131123150754) do
+ActiveRecord::Schema.define(version: 20131208191936477) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
-
-  create_table "conversations", force: true do |t|
-    t.string   "subject",    default: ""
-    t.datetime "created_at",              null: false
-    t.datetime "updated_at",              null: false
-  end
 
   create_table "installs", force: true do |t|
     t.string   "email",                  default: "", null: false
@@ -37,9 +31,6 @@ ActiveRecord::Schema.define(version: 20131123150754) do
     t.datetime "updated_at"
   end
 
-  add_index "installs", ["email"], name: "index_installs_on_email", unique: true, using: :btree
-  add_index "installs", ["reset_password_token"], name: "index_installs_on_reset_password_token", unique: true, using: :btree
-
   create_table "messages", force: true do |t|
     t.string   "sender_id",                           null: false
     t.string   "recipient_id"
@@ -53,37 +44,30 @@ ActiveRecord::Schema.define(version: 20131123150754) do
     t.datetime "updated_at"
   end
 
-  create_table "notifications", force: true do |t|
-    t.string   "type"
-    t.text     "body"
-    t.string   "subject",              default: ""
-    t.integer  "sender_id"
-    t.string   "sender_type"
-    t.integer  "conversation_id"
-    t.boolean  "draft",                default: false
-    t.datetime "updated_at",                           null: false
-    t.datetime "created_at",                           null: false
-    t.integer  "notified_object_id"
-    t.string   "notified_object_type"
-    t.string   "notification_code"
-    t.string   "attachment"
+  create_table "rates", force: true do |t|
+    t.integer  "rater_id"
+    t.integer  "rateable_id"
+    t.string   "rateable_type"
+    t.float    "stars",         null: false
+    t.string   "dimension"
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
-  add_index "notifications", ["conversation_id"], name: "index_notifications_on_conversation_id", using: :btree
+  add_index "rates", ["rateable_id", "rateable_type"], name: "index_rates_on_rateable_id_and_rateable_type", using: :btree
+  add_index "rates", ["rater_id"], name: "index_rates_on_rater_id", using: :btree
 
-  create_table "receipts", force: true do |t|
-    t.integer  "receiver_id"
-    t.string   "receiver_type"
-    t.integer  "notification_id",                            null: false
-    t.boolean  "is_read",                    default: false
-    t.boolean  "trashed",                    default: false
-    t.boolean  "deleted",                    default: false
-    t.string   "mailbox_type",    limit: 25
-    t.datetime "created_at",                                 null: false
-    t.datetime "updated_at",                                 null: false
+  create_table "rating_caches", force: true do |t|
+    t.integer  "cacheable_id"
+    t.string   "cacheable_type"
+    t.float    "avg",            null: false
+    t.integer  "qty",            null: false
+    t.string   "dimension"
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
-  add_index "receipts", ["notification_id"], name: "index_receipts_on_notification_id", using: :btree
+  add_index "rating_caches", ["cacheable_id", "cacheable_type"], name: "index_rating_caches_on_cacheable_id_and_cacheable_type", using: :btree
 
   create_table "table_menus", force: true do |t|
     t.string   "dish",       null: false
